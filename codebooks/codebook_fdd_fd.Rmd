@@ -53,11 +53,11 @@ source(here("R","scopingfunctions.R")) #tabylstuff, dotplot_func, boxplot_func, 
 
 ```{r meta-data}
 
-metadata(Fdd_fd)$name <- "Justgiving fundraising pages, aggregated donations"
-metadata(Fdd_fd)$description <- "Dataset: JustGiving pages pulled via API 2017-19 for 'highly effective' charities; reduced to one row per fundraiser, donation data merged back in"
-metadata(Fdd_fd)$identifier <- "doi:TBA"
-metadata(Fdd_fd)$datePublished <- "TBA"
-metadata(Fdd_fd)$creator <- list(
+metadata(fdd_fd)$name <- "Justgiving fundraising pages, aggregated donations"
+metadata(fdd_fd)$description <- "Dataset: JustGiving pages pulled via API 2017-19 for 'highly effective' charities; reduced to one row per fundraiser, donation data merged back in"
+metadata(fdd_fd)$identifier <- "doi:TBA"
+metadata(fdd_fd)$datePublished <- "TBA"
+metadata(fdd_fd)$creator <- list(
   list(
   "@type" = "Person",
   givenName = "David", familyName = "Reinstein",
@@ -75,12 +75,12 @@ metadata(Fdd_fd)$creator <- list(
   "@type" = "Person",
   givenName = "Toby", familyName = "Jolly")
 
-metadata(Fdd_fd)$citation <- "Jolly, Reinstein, Riener (2019)"
-metadata(Fdd_fd)$url <-
+metadata(fdd_fd)$citation <- "Jolly, Reinstein, Riener (2019)"
+metadata(fdd_fd)$url <-
   "TBA"
-metadata(Fdd_fd)$temporalCoverage <- "2007-2019 (mainly 2017-19)"
-metadata(Fdd_fd)$spatialCoverage <- "Mainly UK"
-metadata(Fdd_fd)$keywords <- c("Charitable giving","Social fundraising")
+metadata(fdd_fd)$temporalCoverage <- "2007-2019 (mainly 2017-19)"
+metadata(fdd_fd)$spatialCoverage <- "Mainly UK"
+metadata(fdd_fd)$keywords <- c("Charitable giving","Social fundraising")
 
 ```
 
@@ -88,7 +88,7 @@ metadata(Fdd_fd)$keywords <- c("Charitable giving","Social fundraising")
 
 ```{r codebook generation, message=FALSE, warning=FALSE}
 
-codebook(Fdd_fd, survey_repetition = "single", metadata_table = TRUE)
+codebook(fdd_fd, survey_repetition = "single", metadata_table = TRUE)
 
 ```
 

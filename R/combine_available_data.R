@@ -123,7 +123,7 @@ pp("Collapse to 1 row per fundraiser, get key statistics for fundraiser (can mer
 
 fdd_f <- 
   list(.vars = lst("donorLocalAmount", c("dur_cdate", "dur_edate")),
-       .funs = lst(funs(count_don=n(), sum_don=sum,med_don=median,mn_don=mean),first))  %>%
+       .funs = lst(funs(count_don=n(), sum_don=sum, med_don=median,mn_don=mean),first))  %>%
   pmap(~ fdd %>% group_by(pageShortName) %>% summarise_at(.x, .y)) %>% 
   reduce(inner_join, by = "pageShortName")
 
@@ -131,6 +131,8 @@ pp("Merge back key variables from Fundr_all")
 fdd_fd <- fundr_all %>% 
   select(charity,fundraisingTarget,CountryCode,totalEstimatedGiftAid,pageShortName,activityId,activityType,activityType,eventId,eventName,EventDate,expiryDate,owner,status,CreatedDate,wday_created,hr_created) %>% 
 right_join(fdd_f,by = "pageShortName")
+
+rm(fdd_f)
   
 comment(fdd_fd) <- "All fundraisers, with aggregated statistics on donations by fundraiser"
 
@@ -142,4 +144,11 @@ u_fundr <- fundr_all %>%
 u_fdd <- fdd %>%  dplyr::filter(totalRaisedOnline>0, CountryCode=="United Kingdom")  
 
 u_fdd_fd <- fdd_fd %>% dplyr::filter(sum_don>0, CountryCode=="United Kingdom") 
+#totalRaisedOnline
+
+### "uc_df": filtering the above to include only those that are plausibly completed at the last data collection (which should have been done just before the script is run for the 25 weeks t be plausible)
+
+uc_fundr <- u_fundr %>% filter(today()>ymd_hms(EventDate)+weeks(25)|today()>expiryDate)
+uc_fdd <- u_fdd %>% filter(today()>ymd_hms(EventDate)+weeks(25)|today()>expiryDate)
+uc_fdd_fd <- u_fdd_fd %>% filter(today()>ymd_hms(EventDate)+weeks(25)|today()>expiryDate)
 
