@@ -1,5 +1,6 @@
 # just-giving-public-prediction 
  
+(see this as a web page with web page links [HERE](https://daaronr.github.io/just-giving-public-prediction-)
 
 # Folders and files
 
@@ -21,7 +22,6 @@ See especially
 The 'assignment' described with links and tips.
 Also, some code you may want to examine that may help your work.
 
-As html (web page) [HERE](prediction/prediction.html)
 
 prediction.Rmd: As R-markdown file (the file which produces the above web page)
 
