@@ -1,6 +1,6 @@
 # just-giving-public-prediction 
  
-(see this as a web page with web page links [HERE](https://daaronr.github.io/just-giving-public-prediction-)
+(see this as a web page with web page links [HERE](https://daaronr.github.io/just-giving-public-prediction-) )
 
 # Folders and files
 
