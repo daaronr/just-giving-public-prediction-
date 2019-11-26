@@ -4,6 +4,7 @@ output:
   pdf_document: default
   html_notebook: default
   html_document:
+    code_folding: hide
     df_print: paged
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 ---
@@ -139,10 +140,6 @@ Note: the sampling of 'live' pages on the site naturally oversamples 'surviving 
 
 # Further code snippets and functions that may be helpful 
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-#source("../code/Recipes.R") #recipes prepare data for distinct models/analyses
-```
 
 
 ## Some key lists of outcome and prediction variables
@@ -173,14 +170,16 @@ v_early_don <- c() # to construct: variables referring to donations *prior* to t
 
 ... some sample code to start with if you want to try this package; it will need adjusting to choose the right variables and imputations, and code below may have bugs! 
 
-```{r}
+```{r, eval=FALSE}
+
+
 
 rec_fd_don <- recipe(sum_don ~ ., data = uc_fdd_fd) %>%
   step_meanimpute(all_numeric(), -all_outcomes())   %>%
-  step_modeimpute(all_nominal()) %>% #mode imputation because nearest neighbor crashes
+  step_modeimpute(all_nominal()) %>% #mode eimputation because nearest neighbor crashes
   step_dummy(all_nominal(), -all_outcomes(), -id) # need a 'design matrix' 
 
-fd_imputed <- prep(rec_sx_don, data = uc_fdd_fd ) %>%
+fd_imputed <- prep(rec_fd_don, data = uc_fdd_fd ) %>%
   bake(new_data = uc_fdd_fd)
 
 x <- model.matrix(sum_don ~., fd_imputed %>% dplyr::select(v_page, -id))[,-1]
@@ -193,7 +192,7 @@ pp("todo: split training and testing data")
 
 ### Doing some modeling ... code needs to be adapted; and it may contain bugs!
 
-```{r}
+```{r, eval=FALSE}
 
 don_cv_glmnet <- cv.glmnet(x, y, alpha = 0.5, family = "gaussian") #play around with this; can you find the 'optimal' alpha... alpha=0 is ridge, alpha=1 is pure lasso?
 
