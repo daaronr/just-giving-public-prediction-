@@ -23,7 +23,7 @@ Also, some code you may want to examine that may help your work.
 
 As html (web page) [HERE](prediction/prediction.html)
 
-[prediction.Rmd](prediction/prediction.Rmd) As Rmd file (which produces the above web page)
+prediction.Rmd: As R-markdown file (the file which produces the above web page)
 
 
 
