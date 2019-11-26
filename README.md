@@ -25,7 +25,7 @@ As html (web page) [HERE](prediction/prediction.html)
 
 [prediction.Rmd](prediction/prediction.Rmd) As Rmd file (which produces the above web page)
 
-\
+
 
 ## input_data
 
