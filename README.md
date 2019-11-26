@@ -21,6 +21,12 @@ See especially
 The 'assignment' described with links and tips.
 Also, some code you may want to examine that may help your work.
 
+As html (web page) [HERE](prediction/prediction.html)
+
+[prediction.Rmd](prediction/prediction.Rmd) As Rmd file (which produces the above web page)
+
+\
+
 ## input_data
 
 Contains the source data to input; this was downloaded from JustGiving's api 
