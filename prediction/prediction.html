@@ -1710,7 +1710,7 @@ summary {
 
 
 <h1 class="title toc-ignore">Project: predict the success of a JustGiving fundraiser based on its initial/early observable features; Dr. David Reinstein for BEE3066</h1>
-<h4 class="date">26 November, 2019</h4>
+<h4 class="date">27 November, 2019</h4>
 
 </div>
 
@@ -1894,11 +1894,11 @@ print(&quot;&#39;Time until 95% of funds raised&#39; (days relative to created d
 <pre><code>## [1] &quot;&#39;Time until 95% of funds raised&#39; (days relative to created date)&#39;&quot;</code></pre>
 <pre class="r"><code>(qtls_dur_cd_95 &lt;- quantile(u_fdd$dur_cd_95[u_fdd$donnum==1],  probs = seq(0, 1, 0.05),na.rm = TRUE))</code></pre>
 <pre><code>##      0%      5%     10%     15%     20%     25%     30%     35%     40% 
-## 3.7e-04 5.8e-01 2.9e+00 6.1e+00 9.4e+00 1.3e+01 1.6e+01 2.0e+01 2.5e+01 
+## 3.7e-04 7.4e-01 3.5e+00 7.1e+00 1.1e+01 1.4e+01 1.8e+01 2.2e+01 2.7e+01 
 ##     45%     50%     55%     60%     65%     70%     75%     80%     85% 
-## 2.9e+01 3.5e+01 4.0e+01 4.8e+01 5.7e+01 7.1e+01 8.8e+01 1.1e+02 1.4e+02 
+## 3.2e+01 3.8e+01 4.5e+01 5.5e+01 6.7e+01 8.2e+01 1.0e+02 1.3e+02 1.7e+02 
 ##     90%     95%    100% 
-## 1.8e+02 2.5e+02 3.5e+03</code></pre>
+## 2.1e+02 3.0e+02 4.2e+03</code></pre>
 <pre class="r"><code>stat.desc(u_fdd$cumsum_check[u_fdd$donnum==1]) %&gt;% kable(format=&quot;html&quot;, caption=&quot;Sum of contributions 12 hours after start point: richer stats&quot;) %&gt;% kable_styling()</code></pre>
 <table class="table" style="margin-left: auto; margin-right: auto;">
 <caption>
@@ -1919,7 +1919,7 @@ x
 nbr.val
 </td>
 <td style="text-align:right;">
-7891.0
+7893.0
 </td>
 </tr>
 <tr>
@@ -1967,7 +1967,7 @@ range
 sum
 </td>
 <td style="text-align:right;">
-760228.5
+760998.5
 </td>
 </tr>
 <tr>
@@ -1983,7 +1983,7 @@ median
 mean
 </td>
 <td style="text-align:right;">
-96.3
+96.4
 </td>
 </tr>
 <tr>
@@ -2007,7 +2007,7 @@ CI.mean.0.95
 var
 </td>
 <td style="text-align:right;">
-66867.7
+66902.0
 </td>
 </tr>
 <tr>
@@ -2028,7 +2028,9 @@ coef.var
 </tr>
 </tbody>
 </table>
-<p>To get 95% of the contributions for a page we need to wait 34.55 days at median, 88.1 days for 75% of pages, 177.51 days for 90% of the pages and 250.45 days for 95% of the pages.</p>
+<p>To get 95% of the contributions for a page we need to wait 37.66 days at median, 104.61 days for 75% of pages, 213.06 days for 90% of the pages and 296.1 days for 95% of the pages.</p>
+<p><br />
+</p>
 </div>
 </div>
 <div id="links-to-relevant-economics-papers" class="section level1">

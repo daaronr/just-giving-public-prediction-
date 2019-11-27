@@ -14,18 +14,18 @@ mutate_at(.funs = funs(as.numeric(.)), .vars = vars(matches("Raised|Estimated|Am
 mutate_at(.funs = funs(as.factor(.)), .vars = vars(matches("CharityCreated|Type|eventName"))) %>%
 mutate_at(.funs = funs(ymd_hms(.)), .vars = vars(matches("Date|date"))) 
  
-  #todo: Wish I could do this with a T-pipe but I can't get that to work for me!
- fundr_all %>% 
+#todo: Wish I could do this with a T-pipe but I can't get that to work for me!
+fundr_all %>% 
   dplyr::select(matches("Raised|Estimated|Amount|CharityCreated|Type|eventName")) %>%
   str()
   
 #drop variables that do not vary (by charity) and don't need preserving, or that we've already filtered on
-try(fundr_all <- fundr_all %>%
-  select(-charity.description,-charity.profilePageUrl, -currencyCode))
+#try(fundr_all <- fundr_all %>%
+# select(-charity.description,-charity.profilePageUrl, -currencyCode))
     
 #Labeling
   #exploring this variable to understand it
-  fundr_all %>%  group_by(eventName,activityCharityCreated) %>%  summarise (n = n()) %>% arrange(desc(n))    
+fundr_all %>%  group_by(eventName,activityCharityCreated) %>%  summarise (n = n()) %>% arrange(desc(n))    
 
 fundr_all <- fundr_all %>%
 var_labels(

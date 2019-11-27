@@ -233,6 +233,9 @@ stat.desc(u_fdd$cumsum_check[u_fdd$donnum==1]) %>% kable(format="html", caption=
 
 To get 95% of the contributions for a page we need to wait `r qtls_dur_cd_95[[11]]` days at median, `r qtls_dur_cd_95[[16]]` days for 75% of pages, `r qtls_dur_cd_95[[19]]` days for 90% of the pages and `r qtls_dur_cd_95[[20]]` days for 95% of the pages.
 
+\
+
+
 # Links to relevant Economics papers
 
 Smith, Sarah, Frank Windmeijer, and Edmund Wright. "Peer effects in charitable giving: Evidence from the (running) field." The Economic Journal 125, no. 585 (2015): 1053-1071.
