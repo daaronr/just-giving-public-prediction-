@@ -23,9 +23,9 @@ The 'assignment' described with links and tips.
 Also, some code you may want to examine that may help your work.
 
 
-prediction.Rmd: As R-markdown file (the file which produces the above web page)
+As html (web page) [HERE](prediction/prediction.html)
 
-
+`prediction.Rmd` is the R-markdown file that generates this.
 
 ## input_data
 
