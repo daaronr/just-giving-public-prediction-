@@ -33,7 +33,7 @@ don_all <- donations_folder %>% #read in and combine 'all donations' from file p
   filter(date_downloaded == max(date_downloaded)) %>%
   select(-ends_with("nil"),-image,-hasImage,-ends_with("Key"),-starts_with("show"),-starts_with("ownerProfileImage")) #removing most redundant variables
 
-comment(don_all) <- "All donations"
+#comment(don_all) <- "All donations"
 
 fundr_all <- fundraising_folder %>% #read in and combine 'all fundraisers' from file paths defined in main.R
   list.files(pattern="*.rds") %>%

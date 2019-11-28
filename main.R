@@ -45,7 +45,7 @@ rdr_cbk("codebook_uc_fdd.Rmd") #codebook for donation data (1 per don) with fund
 
 rdr_cbk("codebook_uc_fdd_fd.Rmd") #codebook for data aggregating donations at fundraiser level   - UK fundraisers with 1+ donation, plausibly completed ()25 weeks rule
 
-####################
+  ###################
 # Render html file for prediction assignment and discussion 
 
 rmarkdown::render(here("prediction", "prediction.Rmd"), output_dir=here("prediction"), intermediates_dir = here("prediction"), knit_root_dir=here("prediction"), output_format = "html_document")

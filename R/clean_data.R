@@ -36,6 +36,19 @@ don_all <- don_all %>%
   var_labels(
   source="Source of donation"
       )
+
+#Remove commas in character variables so that codebook can process it
+
+fundr_all <- fundr_all %>%
+mutate_if(is.character,funs(gsub("," , "-", .))
+           ) #comma to dash
+
+
+
+don_all <- don_all %>%
+mutate_if(is.character,funs(gsub("," , "-", .))
+           ) #comma to dash
+                
   
 #dplyr::mutate(ecount=dplyr::count(eventName)) 
 #filter(ecount>100) 
