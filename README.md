@@ -4,7 +4,7 @@
 
 # Folders and files
 
-`main.R`: Calls the other files to put the data together and produce the codebooks describing hte data
+`main.R`: Calls the other files to put the data together and produce the codebooks describing the data
 
 ## codebooks 
 
@@ -12,9 +12,10 @@ Produces html summaries of the relevant data sets,
 
 See especially
 
-- [codebook_uc_fdd: donations, with page info](codebooks/codebook_u_fdd.html)
+- [codebook_uc_fdd: donations, with page info](codebooks/codebook_uc_fdd.html)
 
-- [codebook_uc_fdd_fd: pages, with aggregated donation info](codebooks/codebook_u_fdd.html)
+- [codebook_uc_fdd_fd: pages, with aggregated donation info](codebooks/codebook_uc_fdd_fd.html)
+
 
 
 ## prediction 
