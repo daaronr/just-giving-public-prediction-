@@ -4,7 +4,7 @@
 
 # Folders and files
 
-`main.R`: Calls the other files to put the data together and produce the codebooks describing hte data
+`main.R`: Calls the other files to put the data together and produce the codebooks describing the data
 
 ## codebooks 
 
