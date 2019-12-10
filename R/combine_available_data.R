@@ -127,9 +127,11 @@ fdd_f <-
   pmap(~ fdd %>% group_by(pageShortName) %>% summarise_at(.x, .y)) %>% 
   reduce(inner_join, by = "pageShortName")
 
-pp("Merge back key variables from Fundr_all")
+#####
+
+pp("Merge back key variables from Fundr_all") #remind us again why this was necessary 
 fdd_fd <- fundr_all %>% 
-  select(charity,fundraisingTarget,CountryCode,totalEstimatedGiftAid,pageShortName,activityId,activityType,activityType,eventId,eventName,EventDate,expiryDate,owner,status,CreatedDate,wday_created,hr_created) %>% 
+  select(charity, fundraisingTarget, CountryCode, totalEstimatedGiftAid,pageShortName,activityId,activityType,activityType,eventId,eventName,EventDate,expiryDate,owner,status,CreatedDate,wday_created,hr_created) %>% 
 right_join(fdd_f,by = "pageShortName")
 
 rm(fdd_f)
@@ -151,4 +153,5 @@ u_fdd_fd <- fdd_fd %>% dplyr::filter(sum_don>0, CountryCode=="United Kingdom")
 uc_fundr <- u_fundr %>% filter(today()>ymd_hms(EventDate)+weeks(25)|today()>expiryDate)
 uc_fdd <- u_fdd %>% filter(today()>ymd_hms(EventDate)+weeks(25)|today()>expiryDate)
 uc_fdd_fd <- u_fdd_fd %>% filter(today()>ymd_hms(EventDate)+weeks(25)|today()>expiryDate)
+
 

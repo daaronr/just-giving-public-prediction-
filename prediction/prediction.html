@@ -1710,11 +1710,685 @@ summary {
 
 
 <h1 class="title toc-ignore">Project: predict the success of a JustGiving fundraiser based on its initial/early observable features; Dr. David Reinstein for BEE3066</h1>
-<h4 class="date">27 November, 2019</h4>
+<h4 class="date">10 December, 2019</h4>
 
 </div>
 
 
+<p>Setup… combines data</p>
+<pre class="r"><code>library(here)
+#library(checkpoint) #to avoid differential processing from different package versions
+library(pacman)
+here &lt;- here::here
+p_load(dplyr,magrittr,purrr,tidyverse,tidyr,broom,janitor,here,glue,dataMaid,glue,readr, lubridate,summarytools,gtools,knitr,pastecs,data.table, kableExtra, recipes)  #citr, reporttools, experiment, estimatr,  kableExtra, ggsignif, glmnet, glmnetUtils, rsample,snakecase,zoo
+
+library(codebook)
+source(here(&quot;R&quot;,&quot;baseopt_jg.R&quot;)) #basic options, definitions, abbreviations for functions, folder path names
+
+
+#put data together
+source(here::here(&quot;R&quot;,&quot;combine_available_data.R&quot;))</code></pre>
+<pre><code>## Parsed with column specification:
+## cols(
+##   amount = col_double(),
+##   currencyCode = col_character(),
+##   donationDate = col_datetime(format = &quot;&quot;),
+##   donationRef.nil = col_logical(),
+##   donorDisplayName = col_character(),
+##   donorLocalAmount = col_double(),
+##   donorLocalCurrencyCode = col_character(),
+##   estimatedTaxReclaim = col_double(),
+##   id = col_double(),
+##   image = col_character(),
+##   message = col_character(),
+##   source = col_character(),
+##   thirdPartyReference.nil = col_logical(),
+##   charityId = col_double(),
+##   amount.nil = col_logical(),
+##   pageShortName = col_character(),
+##   thirdPartyReference = col_character(),
+##   hasImage = col_logical(),
+##   date_downloaded = col_datetime(format = &quot;&quot;)
+## )
+## Parsed with column specification:
+## cols(
+##   amount = col_double(),
+##   currencyCode = col_character(),
+##   donationDate = col_datetime(format = &quot;&quot;),
+##   donationRef.nil = col_logical(),
+##   donorDisplayName = col_character(),
+##   donorLocalAmount = col_double(),
+##   donorLocalCurrencyCode = col_character(),
+##   estimatedTaxReclaim = col_double(),
+##   id = col_double(),
+##   image = col_character(),
+##   message = col_character(),
+##   source = col_character(),
+##   thirdPartyReference.nil = col_logical(),
+##   charityId = col_double(),
+##   amount.nil = col_logical(),
+##   pageShortName = col_character(),
+##   thirdPartyReference = col_character(),
+##   hasImage = col_logical(),
+##   date_downloaded = col_datetime(format = &quot;&quot;)
+## )
+## Parsed with column specification:
+## cols(
+##   amount = col_double(),
+##   currencyCode = col_character(),
+##   donationDate = col_datetime(format = &quot;&quot;),
+##   donationRef.nil = col_logical(),
+##   donorDisplayName = col_character(),
+##   donorLocalAmount = col_double(),
+##   donorLocalCurrencyCode = col_character(),
+##   estimatedTaxReclaim = col_double(),
+##   id = col_double(),
+##   image = col_character(),
+##   message = col_character(),
+##   source = col_character(),
+##   thirdPartyReference.nil = col_logical(),
+##   charityId = col_double(),
+##   amount.nil = col_logical(),
+##   pageShortName = col_character(),
+##   thirdPartyReference = col_character(),
+##   hasImage = col_logical(),
+##   date_downloaded = col_datetime(format = &quot;&quot;)
+## )
+## Parsed with column specification:
+## cols(
+##   amount = col_double(),
+##   currencyCode = col_character(),
+##   donationDate = col_datetime(format = &quot;&quot;),
+##   donationRef.nil = col_logical(),
+##   donorDisplayName = col_character(),
+##   donorLocalAmount = col_double(),
+##   donorLocalCurrencyCode = col_character(),
+##   estimatedTaxReclaim = col_double(),
+##   id = col_double(),
+##   image = col_character(),
+##   message = col_character(),
+##   source = col_character(),
+##   thirdPartyReference.nil = col_logical(),
+##   charityId = col_double(),
+##   amount.nil = col_logical(),
+##   pageShortName = col_character(),
+##   thirdPartyReference = col_character(),
+##   hasImage = col_logical(),
+##   date_downloaded = col_datetime(format = &quot;&quot;)
+## )
+## Parsed with column specification:
+## cols(
+##   amount = col_double(),
+##   currencyCode = col_character(),
+##   donationDate = col_datetime(format = &quot;&quot;),
+##   donationRef.nil = col_logical(),
+##   donorDisplayName = col_character(),
+##   donorLocalAmount = col_double(),
+##   donorLocalCurrencyCode = col_character(),
+##   estimatedTaxReclaim = col_double(),
+##   id = col_double(),
+##   image = col_character(),
+##   message = col_character(),
+##   source = col_character(),
+##   thirdPartyReference.nil = col_logical(),
+##   charityId = col_double(),
+##   amount.nil = col_logical(),
+##   pageShortName = col_character(),
+##   thirdPartyReference = col_character(),
+##   hasImage = col_logical(),
+##   date_downloaded = col_datetime(format = &quot;&quot;)
+## )
+## Parsed with column specification:
+## cols(
+##   amount = col_double(),
+##   currencyCode = col_character(),
+##   donationDate = col_datetime(format = &quot;&quot;),
+##   donationRef.nil = col_logical(),
+##   donorDisplayName = col_character(),
+##   donorLocalAmount = col_double(),
+##   donorLocalCurrencyCode = col_character(),
+##   estimatedTaxReclaim = col_double(),
+##   id = col_double(),
+##   image = col_character(),
+##   message = col_character(),
+##   source = col_character(),
+##   thirdPartyReference.nil = col_logical(),
+##   charityId = col_double(),
+##   amount.nil = col_logical(),
+##   pageShortName = col_character(),
+##   thirdPartyReference = col_character(),
+##   hasImage = col_logical(),
+##   date_downloaded = col_datetime(format = &quot;&quot;)
+## )</code></pre>
+<pre><code>## Parsed with column specification:
+## cols(
+##   amount = col_double(),
+##   currencyCode = col_character(),
+##   donationDate = col_datetime(format = &quot;&quot;),
+##   donationRef.nil = col_logical(),
+##   donorDisplayName = col_character(),
+##   donorLocalAmount = col_double(),
+##   donorLocalCurrencyCode = col_character(),
+##   estimatedTaxReclaim = col_double(),
+##   id = col_double(),
+##   image = col_character(),
+##   source = col_character(),
+##   thirdPartyReference.nil = col_logical(),
+##   charityId = col_double(),
+##   message = col_character(),
+##   pageShortName = col_character(),
+##   amount.nil = col_logical(),
+##   thirdPartyReference = col_character(),
+##   hasImage = col_logical(),
+##   date_downloaded = col_datetime(format = &quot;&quot;)
+## )</code></pre>
+<pre><code>## Parsed with column specification:
+## cols(
+##   amount = col_double(),
+##   currencyCode = col_character(),
+##   donationDate = col_datetime(format = &quot;&quot;),
+##   donationRef.nil = col_logical(),
+##   donorDisplayName = col_character(),
+##   donorLocalAmount = col_double(),
+##   donorLocalCurrencyCode = col_character(),
+##   id = col_double(),
+##   image = col_character(),
+##   message = col_character(),
+##   source = col_character(),
+##   thirdPartyReference.nil = col_logical(),
+##   charityId = col_double(),
+##   estimatedTaxReclaim = col_double(),
+##   amount.nil = col_logical(),
+##   pageShortName = col_character(),
+##   thirdPartyReference = col_character(),
+##   date_downloaded = col_datetime(format = &quot;&quot;)
+## )</code></pre>
+<pre><code>## Parsed with column specification:
+## cols(
+##   amount.nil = col_logical(),
+##   currencyCode = col_character(),
+##   donationDate = col_datetime(format = &quot;&quot;),
+##   donationRef.nil = col_logical(),
+##   donorDisplayName = col_character(),
+##   id = col_double(),
+##   source = col_character(),
+##   thirdPartyReference.nil = col_logical(),
+##   charityId = col_double(),
+##   image = col_character(),
+##   message = col_character(),
+##   amount = col_double(),
+##   donorLocalAmount = col_double(),
+##   donorLocalCurrencyCode = col_character(),
+##   estimatedTaxReclaim = col_double(),
+##   pageShortName = col_character(),
+##   thirdPartyReference = col_character(),
+##   hasImage = col_logical(),
+##   date_downloaded = col_datetime(format = &quot;&quot;)
+## )
+## Parsed with column specification:
+## cols(
+##   amount.nil = col_logical(),
+##   currencyCode = col_character(),
+##   donationDate = col_datetime(format = &quot;&quot;),
+##   donationRef.nil = col_logical(),
+##   donorDisplayName = col_character(),
+##   id = col_double(),
+##   source = col_character(),
+##   thirdPartyReference.nil = col_logical(),
+##   charityId = col_double(),
+##   image = col_character(),
+##   message = col_character(),
+##   amount = col_double(),
+##   donorLocalAmount = col_double(),
+##   donorLocalCurrencyCode = col_character(),
+##   estimatedTaxReclaim = col_double(),
+##   pageShortName = col_character(),
+##   thirdPartyReference = col_character(),
+##   hasImage = col_logical(),
+##   date_downloaded = col_datetime(format = &quot;&quot;)
+## )</code></pre>
+<pre><code>## Parsed with column specification:
+## cols(
+##   X = col_character()
+## )</code></pre>
+<pre><code>## Parsed with column specification:
+## cols(
+##   amount.nil = col_logical(),
+##   currencyCode = col_character(),
+##   donationDate = col_datetime(format = &quot;&quot;),
+##   donationRef.nil = col_logical(),
+##   donorDisplayName = col_character(),
+##   id = col_double(),
+##   source = col_character(),
+##   thirdPartyReference.nil = col_logical(),
+##   charityId = col_double(),
+##   image = col_character(),
+##   message = col_character(),
+##   amount = col_double(),
+##   donorLocalAmount = col_double(),
+##   donorLocalCurrencyCode = col_character(),
+##   estimatedTaxReclaim = col_double(),
+##   pageShortName = col_character(),
+##   thirdPartyReference = col_character(),
+##   hasImage = col_logical(),
+##   date_downloaded = col_datetime(format = &quot;&quot;)
+## )
+## Parsed with column specification:
+## cols(
+##   amount.nil = col_logical(),
+##   currencyCode = col_character(),
+##   donationDate = col_datetime(format = &quot;&quot;),
+##   donationRef.nil = col_logical(),
+##   donorDisplayName = col_character(),
+##   id = col_double(),
+##   source = col_character(),
+##   thirdPartyReference.nil = col_logical(),
+##   charityId = col_double(),
+##   image = col_character(),
+##   message = col_character(),
+##   amount = col_double(),
+##   donorLocalAmount = col_double(),
+##   donorLocalCurrencyCode = col_character(),
+##   estimatedTaxReclaim = col_double(),
+##   pageShortName = col_character(),
+##   thirdPartyReference = col_character(),
+##   hasImage = col_logical(),
+##   date_downloaded = col_datetime(format = &quot;&quot;)
+## )
+## Parsed with column specification:
+## cols(
+##   amount.nil = col_logical(),
+##   currencyCode = col_character(),
+##   donationDate = col_datetime(format = &quot;&quot;),
+##   donationRef.nil = col_logical(),
+##   donorDisplayName = col_character(),
+##   id = col_double(),
+##   source = col_character(),
+##   thirdPartyReference.nil = col_logical(),
+##   charityId = col_double(),
+##   image = col_character(),
+##   message = col_character(),
+##   amount = col_double(),
+##   donorLocalAmount = col_double(),
+##   donorLocalCurrencyCode = col_character(),
+##   estimatedTaxReclaim = col_double(),
+##   pageShortName = col_character(),
+##   thirdPartyReference = col_character(),
+##   hasImage = col_logical(),
+##   date_downloaded = col_datetime(format = &quot;&quot;)
+## )</code></pre>
+<pre><code>## Parsed with column specification:
+## cols(
+##   X = col_character()
+## )</code></pre>
+<pre><code>## Parsed with column specification:
+## cols(
+##   amount = col_double(),
+##   currencyCode = col_character(),
+##   donationDate = col_datetime(format = &quot;&quot;),
+##   donationRef.nil = col_logical(),
+##   donorDisplayName = col_character(),
+##   donorLocalAmount = col_double(),
+##   donorLocalCurrencyCode = col_character(),
+##   id = col_double(),
+##   image = col_character(),
+##   source = col_character(),
+##   thirdPartyReference.nil = col_logical(),
+##   charityId = col_double(),
+##   amount.nil = col_logical(),
+##   message = col_character(),
+##   estimatedTaxReclaim = col_double(),
+##   pageShortName = col_character(),
+##   thirdPartyReference = col_character(),
+##   hasImage = col_logical(),
+##   date_downloaded = col_datetime(format = &quot;&quot;)
+## )
+## Parsed with column specification:
+## cols(
+##   amount = col_double(),
+##   currencyCode = col_character(),
+##   donationDate = col_datetime(format = &quot;&quot;),
+##   donationRef.nil = col_logical(),
+##   donorDisplayName = col_character(),
+##   donorLocalAmount = col_double(),
+##   donorLocalCurrencyCode = col_character(),
+##   id = col_double(),
+##   image = col_character(),
+##   source = col_character(),
+##   thirdPartyReference.nil = col_logical(),
+##   charityId = col_double(),
+##   amount.nil = col_logical(),
+##   message = col_character(),
+##   estimatedTaxReclaim = col_double(),
+##   pageShortName = col_character(),
+##   thirdPartyReference = col_character(),
+##   hasImage = col_logical(),
+##   date_downloaded = col_datetime(format = &quot;&quot;)
+## )
+## Parsed with column specification:
+## cols(
+##   amount = col_double(),
+##   currencyCode = col_character(),
+##   donationDate = col_datetime(format = &quot;&quot;),
+##   donationRef.nil = col_logical(),
+##   donorDisplayName = col_character(),
+##   donorLocalAmount = col_double(),
+##   donorLocalCurrencyCode = col_character(),
+##   id = col_double(),
+##   image = col_character(),
+##   source = col_character(),
+##   thirdPartyReference.nil = col_logical(),
+##   charityId = col_double(),
+##   amount.nil = col_logical(),
+##   message = col_character(),
+##   estimatedTaxReclaim = col_double(),
+##   pageShortName = col_character(),
+##   thirdPartyReference = col_character(),
+##   hasImage = col_logical(),
+##   date_downloaded = col_datetime(format = &quot;&quot;)
+## )
+## Parsed with column specification:
+## cols(
+##   amount = col_double(),
+##   currencyCode = col_character(),
+##   donationDate = col_datetime(format = &quot;&quot;),
+##   donationRef.nil = col_logical(),
+##   donorDisplayName = col_character(),
+##   donorLocalAmount = col_double(),
+##   donorLocalCurrencyCode = col_character(),
+##   id = col_double(),
+##   image = col_character(),
+##   source = col_character(),
+##   thirdPartyReference.nil = col_logical(),
+##   charityId = col_double(),
+##   amount.nil = col_logical(),
+##   message = col_character(),
+##   estimatedTaxReclaim = col_double(),
+##   pageShortName = col_character(),
+##   thirdPartyReference = col_character(),
+##   hasImage = col_logical(),
+##   date_downloaded = col_datetime(format = &quot;&quot;)
+## )</code></pre>
+<pre><code>## Parsed with column specification:
+## cols(
+##   amount = col_double(),
+##   currencyCode = col_character(),
+##   donationDate = col_datetime(format = &quot;&quot;),
+##   donationRef.nil = col_logical(),
+##   donorDisplayName = col_character(),
+##   donorLocalAmount = col_double(),
+##   donorLocalCurrencyCode = col_character(),
+##   estimatedTaxReclaim = col_double(),
+##   id = col_double(),
+##   image = col_character(),
+##   message = col_character(),
+##   source = col_character(),
+##   thirdPartyReference.nil = col_logical(),
+##   charityId = col_double(),
+##   amount.nil = col_logical(),
+##   pageShortName = col_character(),
+##   thirdPartyReference = col_character(),
+##   hasImage = col_logical(),
+##   date_downloaded = col_datetime(format = &quot;&quot;)
+## )
+## Parsed with column specification:
+## cols(
+##   amount = col_double(),
+##   currencyCode = col_character(),
+##   donationDate = col_datetime(format = &quot;&quot;),
+##   donationRef.nil = col_logical(),
+##   donorDisplayName = col_character(),
+##   donorLocalAmount = col_double(),
+##   donorLocalCurrencyCode = col_character(),
+##   estimatedTaxReclaim = col_double(),
+##   id = col_double(),
+##   image = col_character(),
+##   message = col_character(),
+##   source = col_character(),
+##   thirdPartyReference.nil = col_logical(),
+##   charityId = col_double(),
+##   amount.nil = col_logical(),
+##   pageShortName = col_character(),
+##   thirdPartyReference = col_character(),
+##   hasImage = col_logical(),
+##   date_downloaded = col_datetime(format = &quot;&quot;)
+## )</code></pre>
+<pre><code>## Parsed with column specification:
+## cols(
+##   amount = col_double(),
+##   currencyCode = col_character(),
+##   donationDate = col_datetime(format = &quot;&quot;),
+##   donationRef.nil = col_logical(),
+##   donorDisplayName = col_character(),
+##   donorLocalAmount = col_double(),
+##   donorLocalCurrencyCode = col_character(),
+##   estimatedTaxReclaim = col_double(),
+##   id = col_double(),
+##   image = col_character(),
+##   source = col_character(),
+##   thirdPartyReference.nil = col_logical(),
+##   charityId = col_double(),
+##   message = col_character(),
+##   pageShortName = col_character(),
+##   amount.nil = col_logical(),
+##   thirdPartyReference = col_character(),
+##   hasImage = col_logical(),
+##   date_downloaded = col_datetime(format = &quot;&quot;)
+## )
+## Parsed with column specification:
+## cols(
+##   amount = col_double(),
+##   currencyCode = col_character(),
+##   donationDate = col_datetime(format = &quot;&quot;),
+##   donationRef.nil = col_logical(),
+##   donorDisplayName = col_character(),
+##   donorLocalAmount = col_double(),
+##   donorLocalCurrencyCode = col_character(),
+##   estimatedTaxReclaim = col_double(),
+##   id = col_double(),
+##   image = col_character(),
+##   source = col_character(),
+##   thirdPartyReference.nil = col_logical(),
+##   charityId = col_double(),
+##   message = col_character(),
+##   pageShortName = col_character(),
+##   amount.nil = col_logical(),
+##   thirdPartyReference = col_character(),
+##   hasImage = col_logical(),
+##   date_downloaded = col_datetime(format = &quot;&quot;)
+## )</code></pre>
+<pre><code>## Parsed with column specification:
+## cols(
+##   amount = col_double(),
+##   currencyCode = col_character(),
+##   donationDate = col_datetime(format = &quot;&quot;),
+##   donationRef.nil = col_logical(),
+##   donorDisplayName = col_character(),
+##   donorLocalAmount = col_double(),
+##   donorLocalCurrencyCode = col_character(),
+##   estimatedTaxReclaim = col_double(),
+##   id = col_double(),
+##   image = col_character(),
+##   source = col_character(),
+##   thirdPartyReference.nil = col_logical(),
+##   charityId = col_double(),
+##   pageShortName = col_character(),
+##   message = col_character(),
+##   amount.nil = col_logical(),
+##   thirdPartyReference = col_character(),
+##   hasImage = col_logical(),
+##   date_downloaded = col_datetime(format = &quot;&quot;)
+## )
+## Parsed with column specification:
+## cols(
+##   amount = col_double(),
+##   currencyCode = col_character(),
+##   donationDate = col_datetime(format = &quot;&quot;),
+##   donationRef.nil = col_logical(),
+##   donorDisplayName = col_character(),
+##   donorLocalAmount = col_double(),
+##   donorLocalCurrencyCode = col_character(),
+##   estimatedTaxReclaim = col_double(),
+##   id = col_double(),
+##   image = col_character(),
+##   source = col_character(),
+##   thirdPartyReference.nil = col_logical(),
+##   charityId = col_double(),
+##   pageShortName = col_character(),
+##   message = col_character(),
+##   amount.nil = col_logical(),
+##   thirdPartyReference = col_character(),
+##   hasImage = col_logical(),
+##   date_downloaded = col_datetime(format = &quot;&quot;)
+## )</code></pre>
+<pre><code>## Parsed with column specification:
+## cols(
+##   amount = col_double(),
+##   currencyCode = col_character(),
+##   donationDate = col_datetime(format = &quot;&quot;),
+##   donationRef.nil = col_logical(),
+##   donorDisplayName = col_character(),
+##   donorLocalAmount = col_double(),
+##   donorLocalCurrencyCode = col_character(),
+##   estimatedTaxReclaim = col_double(),
+##   id = col_double(),
+##   image = col_character(),
+##   source = col_character(),
+##   thirdPartyReference.nil = col_logical(),
+##   charityId = col_double(),
+##   message = col_character(),
+##   pageShortName = col_character(),
+##   amount.nil = col_logical(),
+##   thirdPartyReference = col_character(),
+##   hasImage = col_logical(),
+##   date_downloaded = col_datetime(format = &quot;&quot;)
+## )
+## Parsed with column specification:
+## cols(
+##   amount = col_double(),
+##   currencyCode = col_character(),
+##   donationDate = col_datetime(format = &quot;&quot;),
+##   donationRef.nil = col_logical(),
+##   donorDisplayName = col_character(),
+##   donorLocalAmount = col_double(),
+##   donorLocalCurrencyCode = col_character(),
+##   estimatedTaxReclaim = col_double(),
+##   id = col_double(),
+##   image = col_character(),
+##   source = col_character(),
+##   thirdPartyReference.nil = col_logical(),
+##   charityId = col_double(),
+##   message = col_character(),
+##   pageShortName = col_character(),
+##   amount.nil = col_logical(),
+##   thirdPartyReference = col_character(),
+##   hasImage = col_logical(),
+##   date_downloaded = col_datetime(format = &quot;&quot;)
+## )</code></pre>
+<pre><code>## Parsed with column specification:
+## cols(
+##   amount = col_double(),
+##   currencyCode = col_character(),
+##   donationDate = col_datetime(format = &quot;&quot;),
+##   donationRef.nil = col_logical(),
+##   donorDisplayName = col_character(),
+##   donorLocalAmount = col_double(),
+##   donorLocalCurrencyCode = col_character(),
+##   estimatedTaxReclaim = col_double(),
+##   id = col_double(),
+##   image = col_character(),
+##   source = col_character(),
+##   thirdPartyReference.nil = col_logical(),
+##   charityId = col_double(),
+##   amount.nil = col_logical(),
+##   message = col_character(),
+##   pageShortName = col_character(),
+##   thirdPartyReference = col_character(),
+##   hasImage = col_logical(),
+##   date_downloaded = col_datetime(format = &quot;&quot;)
+## )
+## Parsed with column specification:
+## cols(
+##   amount = col_double(),
+##   currencyCode = col_character(),
+##   donationDate = col_datetime(format = &quot;&quot;),
+##   donationRef.nil = col_logical(),
+##   donorDisplayName = col_character(),
+##   donorLocalAmount = col_double(),
+##   donorLocalCurrencyCode = col_character(),
+##   estimatedTaxReclaim = col_double(),
+##   id = col_double(),
+##   image = col_character(),
+##   source = col_character(),
+##   thirdPartyReference.nil = col_logical(),
+##   charityId = col_double(),
+##   amount.nil = col_logical(),
+##   message = col_character(),
+##   pageShortName = col_character(),
+##   thirdPartyReference = col_character(),
+##   hasImage = col_logical(),
+##   date_downloaded = col_datetime(format = &quot;&quot;)
+## )</code></pre>
+<pre><code>## Parsed with column specification:
+## cols(
+##   amount = col_double(),
+##   currencyCode = col_character(),
+##   donationDate = col_datetime(format = &quot;&quot;),
+##   donationRef.nil = col_logical(),
+##   donorDisplayName = col_character(),
+##   donorLocalAmount = col_double(),
+##   donorLocalCurrencyCode = col_character(),
+##   estimatedTaxReclaim = col_double(),
+##   id = col_double(),
+##   image = col_character(),
+##   source = col_character(),
+##   thirdPartyReference.nil = col_logical(),
+##   charityId = col_double(),
+##   message = col_character(),
+##   pageShortName = col_character(),
+##   amount.nil = col_logical(),
+##   thirdPartyReference = col_character(),
+##   hasImage = col_logical(),
+##   date_downloaded = col_datetime(format = &quot;&quot;)
+## )
+## Parsed with column specification:
+## cols(
+##   amount = col_double(),
+##   currencyCode = col_character(),
+##   donationDate = col_datetime(format = &quot;&quot;),
+##   donationRef.nil = col_logical(),
+##   donorDisplayName = col_character(),
+##   donorLocalAmount = col_double(),
+##   donorLocalCurrencyCode = col_character(),
+##   estimatedTaxReclaim = col_double(),
+##   id = col_double(),
+##   image = col_character(),
+##   source = col_character(),
+##   thirdPartyReference.nil = col_logical(),
+##   charityId = col_double(),
+##   message = col_character(),
+##   pageShortName = col_character(),
+##   amount.nil = col_logical(),
+##   thirdPartyReference = col_character(),
+##   hasImage = col_logical(),
+##   date_downloaded = col_datetime(format = &quot;&quot;)
+## )</code></pre>
+<pre><code>## Classes &#39;tbl_df&#39;, &#39;tbl&#39; and &#39;data.frame&#39;:    14856 obs. of  11 variables:
+##  $ activityCharityCreated                  : Factor w/ 2 levels &quot;false&quot;,&quot;true&quot;: 2 2 2 2 2 2 2 2 2 2 ...
+##  $ activityType                            : Factor w/ 23 levels &quot;Birthday&quot;,&quot;CharityAppeal&quot;,..: 4 4 4 4 4 4 4 4 4 4 ...
+##  $ eventName                               : Factor w/ 6470 levels &quot; 15 4 15 - Oxfam&quot;,..: 4582 4582 4582 4582 4582 4582 4582 4582 4582 4582 ...
+##  $ grandTotalRaisedExcludingGiftAid        : num  50 20 0 50 0 15 0 50 63 50 ...
+##  $ totalEstimatedGiftAid                   : num  12.5 5 0 5 0 3.75 0 12.5 15 12.5 ...
+##  $ totalRaisedOffline                      : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ totalRaisedOnline                       : num  50 20 0 50 0 15 0 50 63 50 ...
+##  $ totalRaisedPercentageOfFundraisingTarget: num  0 0 0 0 0 0 0 100 63 0 ...
+##  $ totalRaisedSms                          : num  0 0 0 0 0 0 0 0 0 0 ...
+##  $ Type                                    : Factor w/ 1 level &quot;Fundraiser&quot;: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ TargetAmount                            : num  0 0 0 0 0 0 0 50 100 0 ...</code></pre>
+<pre><code>## `mutate_if()` ignored the following grouping variables:
+## Column `id`</code></pre>
+<pre><code>## [1] &quot;Collapse to 1 row per fundraiser, get key statistics for fundraiser (can merge back to fundr_all)&quot;
+## [1] &quot;Merge back key variables from Fundr_all&quot;</code></pre>
 <div id="just-giving-prediction---data-described-briefly" class="section level1">
 <h1>Just giving prediction - Data described briefly</h1>
 <p>Donation and fundraiser data pulled from JustGiving.com using (fundraising_data_pull R code)[<a href="https://github.com/TWJolly/fundraising_data_pull" class="uri">https://github.com/TWJolly/fundraising_data_pull</a>] created by Toby Jolly. Visit JustGiving.com to learn more.<br />
@@ -1736,7 +2410,7 @@ summary {
 <p>…</p>
 </div>
 </div>
-<div id="project-goals-goal-1-is-essential-2-3-are-optional" class="section level1">
+<div id="goals" class="section level1">
 <h1>Project goals (goal 1 is essential, 2-3 are optional)</h1>
 <ol style="list-style-type: decimal">
 <li>Create the ‘best predictive model’ of how much a fundraising page (started on JustGiving ‘highly effective international charities’, i.e., from this extract) will raise</li>
@@ -1781,10 +2455,12 @@ summary {
 <ol start="2" style="list-style-type: decimal">
 <li>Define and calculate the outcome variables (total amount raised) (again, done for you unless you want to look at an additional)</li>
 </ol>
-<p>The key outcome variable is <code>df$var</code></p>
+<p>The key outcome variable is <code>uc_fdd_fd$sum_don</code> (in the other data set a similar variable is coded as <code>u_fdd$totalRaisedOnline</code>); see discussion to consider other variables.</p>
 <ul>
-<li>We may need to filter only those pages that are plausibly ‘completed’ (ended or most of funds likely to be raised)… note in particular the ‘event date’</li>
+<li>We may need to filter only those pages that are plausibly ‘completed’ (ended or most of funds likely to be raised)… note in particular the ‘event date’ (again, this has been done in a simple way if you use the <code>uc_xxx</code> rather than the <code>u_xxx</code> versions of the frames; feel free to consider a more sophisticated trimming)</li>
 </ul>
+<p><br />
+</p>
 <ol start="3" style="list-style-type: decimal">
 <li><p>Split and set-aside training and test data</p></li>
 <li><p>Model the outcome… I suggest using a shrinkage model, e.g.:</p></li>
@@ -1806,6 +2482,8 @@ summary {
 <li><p><a href="codebooks/codebook_u_fdd.html">codebook_u_fdd: donations, with page info</a></p></li>
 <li><p><a href="codebooks/codebook_u_fdd.html">codebook_u_fdd_fd: pages, with aggregated donation info</a></p></li>
 </ul>
+<p><br />
+</p>
 <div id="criterion-for-inclusion-continued" class="section level2">
 <h2>Criterion for inclusion, continued</h2>
 <ul>
@@ -1894,11 +2572,11 @@ print(&quot;&#39;Time until 95% of funds raised&#39; (days relative to created d
 <pre><code>## [1] &quot;&#39;Time until 95% of funds raised&#39; (days relative to created date)&#39;&quot;</code></pre>
 <pre class="r"><code>(qtls_dur_cd_95 &lt;- quantile(u_fdd$dur_cd_95[u_fdd$donnum==1],  probs = seq(0, 1, 0.05),na.rm = TRUE))</code></pre>
 <pre><code>##      0%      5%     10%     15%     20%     25%     30%     35%     40% 
-## 3.7e-04 7.4e-01 3.5e+00 7.1e+00 1.1e+01 1.4e+01 1.8e+01 2.2e+01 2.7e+01 
+## 3.7e-04 7.4e-01 3.4e+00 7.0e+00 1.0e+01 1.3e+01 1.7e+01 2.1e+01 2.6e+01 
 ##     45%     50%     55%     60%     65%     70%     75%     80%     85% 
-## 3.2e+01 3.8e+01 4.5e+01 5.5e+01 6.7e+01 8.2e+01 1.0e+02 1.3e+02 1.7e+02 
+## 3.1e+01 3.6e+01 4.3e+01 5.1e+01 6.3e+01 7.7e+01 9.8e+01 1.2e+02 1.6e+02 
 ##     90%     95%    100% 
-## 2.1e+02 3.0e+02 4.2e+03</code></pre>
+## 2.1e+02 2.8e+02 4.2e+03</code></pre>
 <pre class="r"><code>stat.desc(u_fdd$cumsum_check[u_fdd$donnum==1]) %&gt;% kable(format=&quot;html&quot;, caption=&quot;Sum of contributions 12 hours after start point: richer stats&quot;) %&gt;% kable_styling()</code></pre>
 <table class="table" style="margin-left: auto; margin-right: auto;">
 <caption>
@@ -1919,7 +2597,7 @@ x
 nbr.val
 </td>
 <td style="text-align:right;">
-7893.0
+8945.0
 </td>
 </tr>
 <tr>
@@ -1927,7 +2605,7 @@ nbr.val
 nbr.null
 </td>
 <td style="text-align:right;">
-638.0
+765.0
 </td>
 </tr>
 <tr>
@@ -1967,7 +2645,7 @@ range
 sum
 </td>
 <td style="text-align:right;">
-760998.5
+873905.7
 </td>
 </tr>
 <tr>
@@ -1983,7 +2661,7 @@ median
 mean
 </td>
 <td style="text-align:right;">
-96.4
+97.7
 </td>
 </tr>
 <tr>
@@ -1991,7 +2669,7 @@ mean
 SE.mean
 </td>
 <td style="text-align:right;">
-2.9
+2.7
 </td>
 </tr>
 <tr>
@@ -1999,7 +2677,7 @@ SE.mean
 CI.mean.0.95
 </td>
 <td style="text-align:right;">
-5.7
+5.3
 </td>
 </tr>
 <tr>
@@ -2007,7 +2685,7 @@ CI.mean.0.95
 var
 </td>
 <td style="text-align:right;">
-66902.0
+65830.2
 </td>
 </tr>
 <tr>
@@ -2015,7 +2693,7 @@ var
 std.dev
 </td>
 <td style="text-align:right;">
-258.6
+256.6
 </td>
 </tr>
 <tr>
@@ -2023,15 +2701,22 @@ std.dev
 coef.var
 </td>
 <td style="text-align:right;">
-2.7
+2.6
 </td>
 </tr>
 </tbody>
 </table>
-<p>To get 95% of the contributions for a page we need to wait 37.66 days at median, 104.61 days for 75% of pages, 213.06 days for 90% of the pages and 296.1 days for 95% of the pages.</p>
+<p>To get 95% of the contributions for a page we need to wait 35.97 days at median, 97.59 days for 75% of pages, 205.88 days for 90% of the pages and 281.88 days for 95% of the pages.</p>
 <p><br />
 </p>
 </div>
+</div>
+<div id="optional-remove-extra-data-frames" class="section level1">
+<h1>Optional: remove extra data frames</h1>
+<p>Do you want to remove the extra data frames (used in construction). These may be useful for a more ambitious analysis; comment this out if you don’t want to remove.</p>
+<pre class="r"><code>rm(u_fdd,u_fdd_fd,u_fundr,u_fundr_all, don_all,  fdd_fd,fdd, uc_fundr) </code></pre>
+<p><br />
+</p>
 </div>
 <div id="links-to-relevant-economics-papers" class="section level1">
 <h1>Links to relevant Economics papers</h1>

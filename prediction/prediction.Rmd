@@ -1,13 +1,31 @@
 ---
 title: "Project: predict the success of a JustGiving fundraiser based on its initial/early observable features; Dr. David Reinstein for BEE3066"
 output:
-  pdf_document: default
-  html_notebook: default
   html_document:
     code_folding: hide
     df_print: paged
+  html_notebook: default
+  pdf_document: default
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 ---
+
+Setup... combines data
+```{r setup-chunk-add-here, cache=TRUE, warning=FALSE}
+
+library(here)
+#library(checkpoint) #to avoid differential processing from different package versions
+library(pacman)
+here <- here::here
+p_load(dplyr,magrittr,purrr,tidyverse,tidyr,broom,janitor,here,glue,dataMaid,glue,readr, lubridate,summarytools,gtools,knitr,pastecs,data.table, kableExtra, recipes)  #citr, reporttools, experiment, estimatr,  kableExtra, ggsignif, glmnet, glmnetUtils, rsample,snakecase,zoo
+
+library(codebook)
+source(here("R","baseopt_jg.R")) #basic options, definitions, abbreviations for functions, folder path names
+
+
+#put data together
+source(here::here("R","combine_available_data.R"))
+```
+
 
 
 # Just giving prediction - Data described briefly
@@ -36,7 +54,7 @@ Other relevant datasets/frames/objects:
   
 ...
 
-# Project goals (goal 1 is essential, 2-3 are optional)
+# Project goals (goal 1 is essential, 2-3 are optional) {#goals}
 
 1. Create the 'best predictive model' of how much a fundraising page (started on JustGiving 'highly effective international charities', i.e., from this extract) will raise 
 
@@ -78,9 +96,13 @@ Try to minimise (out-of-sample or cross-validated) prediction error (with error 
 
 2. Define and calculate the outcome variables (total amount raised) (again, done for you unless you want to look at an additional)
 
-The key outcome variable is `df$var`
+The key outcome variable is `uc_fdd_fd$sum_don` (in the other data set a similar variable is coded as `u_fdd$totalRaisedOnline`); see discussion to consider other variables. 
 
-- We may need to filter only those pages that are plausibly 'completed' (ended or most of funds likely to be raised)... note in particular the 'event date'
+- We may need to filter only those pages that are plausibly 'completed' (ended or most of funds likely to be raised)... note in particular the 'event date' (again, this has been done in a simple way if you use the `uc_xxx` rather than the `u_xxx` versions of the frames; feel free to consider a more sophisticated trimming)
+
+\
+
+
 
 3. Split and set-aside training and test data
 
@@ -101,6 +123,8 @@ See all html files in 'codebooks' folder, especially:
 - [codebook_u_fdd: donations, with page info](codebooks/codebook_u_fdd.html)
 
 - [codebook_u_fdd_fd: pages, with aggregated donation info](codebooks/codebook_u_fdd.html)
+
+\
 
 ## Criterion for inclusion, continued
 
@@ -234,6 +258,20 @@ stat.desc(u_fdd$cumsum_check[u_fdd$donnum==1]) %>% kable(format="html", caption=
 To get 95% of the contributions for a page we need to wait `r qtls_dur_cd_95[[11]]` days at median, `r qtls_dur_cd_95[[16]]` days for 75% of pages, `r qtls_dur_cd_95[[19]]` days for 90% of the pages and `r qtls_dur_cd_95[[20]]` days for 95% of the pages.
 
 \
+
+
+# Optional: remove extra data frames
+
+Do you want to remove the extra data frames (used in construction). These may be useful for a more ambitious analysis; comment this out if you don't want to remove.
+
+```{r}
+
+rm(u_fdd,u_fdd_fd,u_fundr,u_fundr_all, don_all,  fdd_fd,fdd, uc_fundr) 
+```
+
+
+\
+
 
 
 # Links to relevant Economics papers
