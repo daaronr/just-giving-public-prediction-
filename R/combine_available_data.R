@@ -146,7 +146,9 @@ u_fdd <- fdd %>%  dplyr::filter(totalRaisedOnline>0, CountryCode=="United Kingdo
 u_fdd_fd <- fdd_fd %>% dplyr::filter(sum_don>0, CountryCode=="United Kingdom") 
 #totalRaisedOnline
 
-### "uc_df": filtering the above to include only those that are plausibly completed at the last data collection (which should have been done just before the script is run for the 25 weeks t be plausible)
+### "uc_df": filtering the above to include only those that are plausibly completed at the last data collection (which should have been done just before the script is run for the '25 weeks' below to be plausible)
+
+# Todo: either adjust the 'today' variable to represent the date of last API download - or user should redo the API download
 
 uc_fundr <- u_fundr %>% filter(today()>ymd_hms(EventDate)+weeks(25)|today()>expiryDate)
 uc_fdd <- u_fdd %>% filter(today()>ymd_hms(EventDate)+weeks(25)|today()>expiryDate)
