@@ -2400,9 +2400,13 @@ source(here::here(&quot;R&quot;,&quot;combine_available_data.R&quot;))</code></p
 <p> </p>
 <div id="data-extracts-to-use-here" class="section level2">
 <h2>Data extracts to use here</h2>
-<p><code>u_fdd</code>: Donations from UK-based pages in the above category, with information on the fundraisers these donations occurred on</p>
+<p><code>uc_fdd</code>: Donations from UK-based pages in the above category, with information on the fundraisers these donations occurred on.</p>
+<ul>
+<li>One row per donation</li>
+<li>the ‘uc_’ rather than ‘u_’ prefix denotes that we have kept only fundraisers ‘completed’ 25+ weeks ago</li>
+</ul>
 <p><br />
-<code>u_fdd_fd</code>: UK based fundraising pages in the above category, with aggregated statistics on donations by fundraiser&quot;</p>
+<code>uc_fdd_fd</code>: UK based fundraising pages in the above category, with aggregated statistics on donations by fundraiser&quot;</p>
 <ul>
 <li>This is probably the key data frame to use</li>
 </ul>
@@ -2480,7 +2484,9 @@ source(here::here(&quot;R&quot;,&quot;combine_available_data.R&quot;))</code></p
 <p>See all html files in ‘codebooks’ folder, especially:</p>
 <ul>
 <li><p><a href="codebooks/codebook_u_fdd.html">codebook_u_fdd: donations, with page info</a></p></li>
+<li><p><a href="codebooks/codebook_uc_fdd.html">codebook_uc_fdd: donations, with page info, expired/event 25+ weeks ago</a></p></li>
 <li><p><a href="codebooks/codebook_u_fdd.html">codebook_u_fdd_fd: pages, with aggregated donation info</a></p></li>
+<li><p><a href="codebooks/codebook_uc_fdd.html">codebook_uc_fdd_fd: pages, with aggregated donation info, expired/event 25+ weeks ago</a></p></li>
 </ul>
 <p><br />
 </p>
