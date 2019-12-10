@@ -9,6 +9,10 @@ output:
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 ---
 
+```{r setup-chunk-here}
+
+```
+
 
 # Just giving prediction - Data described briefly
 
@@ -25,10 +29,13 @@ Highly-rated 'effective and international' charities selected only, and only pag
 
 ## Data extracts to use here
 
-`u_fdd`: Donations from UK-based pages in the above category, with information on the  fundraisers these donations occurred on 
+`uc_fdd`: Donations from UK-based pages in the above category, with information on the fundraisers these donations occurred on.
+
+- One row per donation
+- the 'uc_' rather than 'u_' prefix denotes that we have kept only fundraisers 'completed' 25+ weeks ago
 
 \
-`u_fdd_fd`: UK based fundraising pages in the above category, with aggregated statistics on donations by fundraiser"
+`uc_fdd_fd`: UK based fundraising pages in the above category, with aggregated statistics on donations by fundraiser"
 
 - This is probably the key data frame to use
 
@@ -100,7 +107,13 @@ See all html files in 'codebooks' folder, especially:
 
 - [codebook_u_fdd: donations, with page info](codebooks/codebook_u_fdd.html)
 
+- [codebook_uc_fdd: donations, with page info, expired/event 25+ weeks ago](codebooks/codebook_uc_fdd.html)
+
 - [codebook_u_fdd_fd: pages, with aggregated donation info](codebooks/codebook_u_fdd.html)
+
+- [codebook_uc_fdd_fd: pages, with aggregated donation info, expired/event 25+ weeks ago](codebooks/codebook_uc_fdd.html)
+
+\
 
 ## Criterion for inclusion, continued
 
@@ -171,8 +184,6 @@ v_early_don <- c() # to construct: variables referring to donations *prior* to t
 ... some sample code to start with if you want to try this package; it will need adjusting to choose the right variables and imputations, and code below may have bugs! 
 
 ```{r, eval=FALSE}
-
-
 
 rec_fd_don <- recipe(sum_don ~ ., data = uc_fdd_fd) %>%
   step_meanimpute(all_numeric(), -all_outcomes())   %>%
