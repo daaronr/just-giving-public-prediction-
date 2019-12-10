@@ -12,18 +12,19 @@ Produces html summaries of the relevant data sets,
 
 See especially
 
-- [codebook_uc_fdd: donations, with page info](codebooks/codebook_uc_fdd.html)
+- [codebook_uc_fdd: donations, with page info](codebooks/codebook_uc_fdd.html) Note: you must be in the 'web version' for these to show as web page rather than raw html -- click [here](https://daaronr.github.io/just-giving-public-prediction-)
 
 - [codebook_uc_fdd_fd: pages, with aggregated donation info](codebooks/codebook_uc_fdd_fd.html)
+
 
 
 ## prediction 
 
 The 'assignment' described with links and tips.
 Also, some code you may want to examine that may help your work.
+ 
+As html (web page) [HERE](prediction/prediction.html) (again, you must be in the web version of this page...  click [here](https://daaronr.github.io/just-giving-public-prediction-)
 
-
-As html (web page) [HERE](prediction/prediction.html)
 
 `prediction.Rmd` is the R-markdown file that generates this.
 
