@@ -9,7 +9,6 @@ output:
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 ---
 
-<<<<<<< HEAD
 Setup... combines data
 ```{r setup-chunk-add-here, cache=TRUE, warning=FALSE}
 
@@ -27,13 +26,6 @@ source(here("R","baseopt_jg.R")) #basic options, definitions, abbreviations for 
 source(here::here("R","combine_available_data.R"))
 ```
 
-
-=======
-```{r setup-chunk-here}
-
-```
-
->>>>>>> 5ca97ce08a01c9d059f6d8bcc6cdc9e9c50ddf1f
 
 # Just giving prediction - Data described briefly
 
@@ -136,11 +128,6 @@ See all html files in 'codebooks' folder, especially:
 
 - [codebook_u_fdd_fd: pages, with aggregated donation info](codebooks/codebook_u_fdd.html)
 
-<<<<<<< HEAD
-=======
-- [codebook_uc_fdd_fd: pages, with aggregated donation info, expired/event 25+ weeks ago](codebooks/codebook_uc_fdd.html)
-
->>>>>>> 5ca97ce08a01c9d059f6d8bcc6cdc9e9c50ddf1f
 \
 
 ## Criterion for inclusion, continued

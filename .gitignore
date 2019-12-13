@@ -6,3 +6,8 @@
 .log
 .synctex.gz
 *.log
+prediction/prediction_cache/latex/setup-chunk-add-here_4cfe75b415a0cc8153ea719f81636c5c.RData
+*.rdb
+*.rdx
+*.RData
+prediction/prediction_cache/latex/__packages
