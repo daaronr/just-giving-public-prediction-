@@ -64,7 +64,7 @@ The key outcome variable is `uc_fdd_fd$sum_don` (in the other data set a similar
 
 \
 
-- ... within its "reasonable life" (e.g., until the fundraiser is ended or until it is 95% likely that 90% of the funds that will be raised have already been raised.)
+- The aim here is to predict how much a fundraiser will raise within its "reasonable life" (e.g., until the fundraiser is ended or until it is 95% likely that 90% of the funds that will be raised have already been raised.)
 
 - Alternately, the amount it will raise in a certain reasonable duration (e.g., 'after six months')
 
