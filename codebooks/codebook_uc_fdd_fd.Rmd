@@ -49,6 +49,22 @@ source(here("R","scopingfunctions.R")) #tabylstuff, dotplot_func, boxplot_func, 
 
 ```
 
+## Change to lower_snake_case
+```{r, include=FALSE}
+uc_fdd_fd <- uc_fdd_fd %>% 
+  rename(
+    country_code = CountryCode,
+    total_estimated_gift_aid = totalEstimatedGiftAid,
+    page_short_name = pageShortName,
+    activity_id = activityId,
+    activity_type = activityType,
+    event_id = eventId,
+    event_name = eventName,
+    event_date = EventDate,
+    expiry_date = expiryDate,
+    created_date = CreatedDate,
+    )
+```
 ## Add meta-data
 
 ```{r meta-data}
