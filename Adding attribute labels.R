@@ -1,12 +1,25 @@
 #Adding attributes to the data
 
 names(uc_fdd_fd["charity"])
-attributes_list <- 
-set_label(names(uc_fdd_fd["charity"]), label = "The name of the charity")
-attributes(uc_fdd_fd$charity)
-get_label(uc_fdd_fd$charity)
-attr(names(uc_fdd_fd["charity"]), 'comment') <- "Name of the charity"
-comment(names(uc_fdd_fd["charity"])) <- "Name of charity"
-attributes(names(uc_fdd_fd["charity"]))
+
 comment(uc_fdd_fd["cha"])
 list_of_vars <- names(uc_fdd_fd)
+list_of_vars
+attribute_list <- c("name of charity", "target of the fundraiser")
+
+list1 <- (rep("name of charity",22))
+attribute_list
+attributes_df <- data.frame(t(list1))
+colnames(attributes_df) <- list_of_vars
+
+for (i in 1:22) {
+  comment(select(uc_fdd_fd, i)) <- attributes_df[i]
+}
+comment(uc_fdd_fd$charity) <- "ds"
+comment_on_vars <- function(uc_fdd_fd, attributes_df) {
+  comment(uc_fdd_fd)
+}
+
+comment(uc_fdd_fd$charity)
+comment(uc_fdd_fd$charity) <- as.character((attributes_df[2]))
+comment(uc_fdd_fd$charity)
