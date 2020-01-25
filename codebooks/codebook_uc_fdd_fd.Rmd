@@ -48,11 +48,11 @@ source(here("R","scopingfunctions.R")) #tabylstuff, dotplot_func, boxplot_func, 
 
 
 ```
-
 ## Change to lower_snake_case
 ```{r, include=FALSE}
 uc_fdd_fd <- uc_fdd_fd %>% 
   rename(
+    fundraising_target = fundraisingTarget,
     country_code = CountryCode,
     total_estimated_gift_aid = totalEstimatedGiftAid,
     page_short_name = pageShortName,
