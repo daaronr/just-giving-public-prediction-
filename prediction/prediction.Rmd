@@ -1,11 +1,11 @@
 ---
 title: "Project: predict the success of a JustGiving fundraiser based on its initial/early observable features; Dr. David Reinstein for BEE3066"
 output:
+  html_notebook: default
+  pdf_document: default
   html_document:
     code_folding: hide
     df_print: paged
-  pdf_document: default
-  html_notebook: default
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 ---
 
@@ -119,17 +119,17 @@ The key outcome variable is `uc_fdd_fd$sum_don` (in the other data set a similar
 5. After all analysis has been done measure the prediction success of the model on the set-aside data. *Do not* re-fit the model after this, as it risks over-fitting. (Instructor: you may choose to create a set-aside dataset yourself to make this a fair contest (i.e., to 'gamify' it, to use the trendy term)]
 
 # Description of variables in uc_fdd_fd
--charity: The name of the charity which the fundraiser was set up for.
--fundraising_target: The target set for the fundraiser to earn.
--country_code: An indicator for the country in which the fundraiser was started. For the data selected for -this prediction project, the only country is the United Kingdom.
--total_estimated_gift_aid: The total amount of funding from gift aid that the fundraiser received.Gift aid is a tax based scheme enabling registered charities to reclaim tax on a donation made by a UK taxpayer, effectively increasing the amount of the donation. https://en.wikipedia.org/wiki/Gift_Aid
--page_short_name: The shortened name of the fundraising page.
--activity_id: An identifier number for the fundraising page.
--event_id: An identifier number for the fundraising event.
--activity_type: The type of fundraising event, for example a Charity Cycle.
--event_date: The date on which the fundraising event occurred or will occur.
--expiry_date: The date when fundraising ended, in this case all expiry dates are NA.
--status: Whether the fundraiser was Active, Cancelled or Completed at the time in which the API pulled the data.
+- charity: The name of the charity which the fundraiser was set up for.
+- fundraising_target: The target set for the fundraiser to earn.
+- country_code: An indicator for the country in which the fundraiser was started. For the data selected for - this prediction project, the only country is the United Kingdom.
+- total_estimated_gift_aid: The total amount of funding from gift aid that the fundraiser received.Gift aid is a tax based scheme enabling registered charities to reclaim tax on a donation made by a UK taxpayer, effectively increasing the amount of the donation. https://en.wikipedia.org/wiki/Gift_Aid
+- page_short_name: The shortened name of the fundraising page.
+- activity_id: An identifier number for the fundraising page.
+- event_id: An identifier number for the fundraising event.
+- activity_type: The type of fundraising event, for example a Charity Cycle.
+- event_date: The date on which the fundraising event occurred or will occur.
+- expiry_date: The date when fundraising ended, in this case all expiry dates are NA.
+- status: Whether the fundraiser was Active, Cancelled or Completed at the time in which the API pulled the data.
 -created_date: Date when the fundraiser was created.
 -wday_created: The day of the week on which the event was created.
 -hr_created: The hour of the day in which the fundraiser was created.
