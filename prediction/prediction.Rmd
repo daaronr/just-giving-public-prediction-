@@ -119,8 +119,8 @@ The key outcome variable is `uc_fdd_fd$sum_don` (in the other data set a similar
 5. After all analysis has been done measure the prediction success of the model on the set-aside data. *Do not* re-fit the model after this, as it risks over-fitting. (Instructor: you may choose to create a set-aside dataset yourself to make this a fair contest (i.e., to 'gamify' it, to use the trendy term)]
 
 # Description of variables in uc_fdd_fd
-- charity: The name of the charity which the fundraiser was set up for.
-- fundraising_target: The target set for the fundraiser to earn.
+-charity: `r get_label(uc_fdd_fd$Charity)`
+- fundraising_target: "The target set for the fundraiser to earn."
 - country_code: An indicator for the country in which the fundraiser was started. For the data selected for - this prediction project, the only country is the United Kingdom.
 - total_estimated_gift_aid: The total amount of funding from gift aid that the fundraiser received.Gift aid is a tax based scheme enabling registered charities to reclaim tax on a donation made by a UK taxpayer, effectively increasing the amount of the donation. https://en.wikipedia.org/wiki/Gift_Aid
 - page_short_name: The shortened name of the fundraising page.
