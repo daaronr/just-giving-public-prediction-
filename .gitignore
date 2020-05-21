@@ -13,3 +13,4 @@ prediction/prediction_cache/latex/setup-chunk-add-here_4cfe75b415a0cc8153ea719f8
 *.rdx
 *.RData
 prediction/prediction_cache/latex/__packages
+*.png
